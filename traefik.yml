@@ -12,3 +12,12 @@ entryPoints:
     address: ":80"
   websecure:
     address: ":443"
+
+
+metrics:
+  prometheus:
+    buckets:
+      - 0.1
+      - 0.3
+      - 1.2
+      - 5.0
