@@ -1,0 +1,23 @@
+# version is not needed for `docker-compose` command, Uncomment when using `docker compose`.
+#version: '3.8'
+
+services:
+  traefik:
+    image: traefik:latest
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.yml:/etc/traefik/traefik.yml
+  
+  testapp:
+    image: nginx:1.27.4-alpine
+    deploy:
+      replicas: 3
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.testapp.rule=Host(`app.localhost`)
+      - traefik.http.routers.testapp.entrypoints=web
+      - "traefik.http.routers.testapp.service=testing-svc"
+      - "traefik.http.services.testing-svc.loadbalancer.server.port=5000"
