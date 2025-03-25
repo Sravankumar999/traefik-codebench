@@ -16,8 +16,8 @@ services:
     deploy:
       replicas: 3
     labels:
-      - traefik.enable=true
-      - traefik.http.routers.testapp.rule=Host(`app.localhost`)
-      - traefik.http.routers.testapp.entrypoints=web
+      - "traefik.enable=true"
+      - "traefik.http.routers.testapp.rule=Host(`app.localhost`)"
+      - "traefik.http.routers.testapp.entrypoints=web"
       - "traefik.http.routers.testapp.service=testing-svc"
-      - "traefik.http.services.testing-svc.loadbalancer.server.port=5000"
+      - "traefik.http.services.testing-svc.loadbalancer.server.port=80"
